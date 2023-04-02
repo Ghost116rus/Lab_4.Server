@@ -8,7 +8,6 @@ public class WorkWithFile extends Observable implements ILogger {
     private final String _path;
     private File log;
     public String getPath() {return _path; }
-    private final PrintWriter pw;
 
     public WorkWithFile()
     {
@@ -17,21 +16,9 @@ public class WorkWithFile extends Observable implements ILogger {
     public WorkWithFile(String path)
     {
         _path = path;
-        OpenLogFile();
-        try{
-            pw = new PrintWriter(log.getAbsoluteFile());
-        }
-        catch(IOException e){throw new RuntimeException();}
-
+        CheckLogFile();
     }
-
-    public void EndWork()
-    {
-        this.LogEvent("Завершение работы\n");
-        pw.close();
-    }
-
-    private void OpenLogFile()
+    private void CheckLogFile()
     {
         log = new File(_path);
         try{
@@ -50,9 +37,9 @@ public class WorkWithFile extends Observable implements ILogger {
                 try{
                     String s = "";
                     while((s = br.readLine())!=null){//построчное чтение
-                        if (s.contains("Array: "))
+                        if (s.contains("LogFile: "))
                         {
-                            s = s.replace("Array: ","");
+                            s = s.replace("LogFile: ","");
                             sb.append(s);
                             break;
                         }
@@ -60,11 +47,25 @@ public class WorkWithFile extends Observable implements ILogger {
                 }finally{br.close();}
             }catch(IOException e){throw new RuntimeException();}
         }
-        return (sb.toString());//в sb.toString() хранится текст файла
+        var str = sb.toString();
+        if (str.equals(""))  { str = "log.txt"; }
+
+        return (str);//в sb.toString() хранится текст файла
     }
 
     @Override
     public void LogEvent(String data) {
-        pw.println(data);
+        try(FileWriter writer = new FileWriter(_path, true))
+        {
+            // запись всей строки
+            String text = ( new Date()) + " " + data + "\n";
+            writer.write(text);
+
+            writer.flush();
+        }
+        catch(IOException ex){
+
+            System.out.println(ex.getMessage());
+        }
     }
 }

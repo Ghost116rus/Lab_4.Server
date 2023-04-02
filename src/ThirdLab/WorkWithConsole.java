@@ -18,6 +18,11 @@ public class WorkWithConsole extends Observable implements ILogger {
         System.out.println(obj);
     }
 
+    public String Input()
+    {
+        return sc.nextLine();
+    }
+
     @Override
     public void LogEvent(String data) {
         OutputInConsole("Событие вызвано, но наблюдатель-то консоль - " + data);

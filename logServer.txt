@@ -1,0 +1,8 @@
+Mon Apr 03 01:13:21 MSK 2023 Get from client: +5+ address - 52241
+Mon Apr 03 01:13:21 MSK 2023 Computing result: Bad expression
+Mon Apr 03 01:13:27 MSK 2023 Get from client: 5 address - 52241
+Mon Apr 03 01:13:27 MSK 2023 Computing result: 5.0
+Mon Apr 03 01:14:29 MSK 2023 Get from client: 59+22 address - 52241
+Mon Apr 03 01:14:29 MSK 2023 Computing for52241 result: 81.0
+Mon Apr 03 01:14:38 MSK 2023 Get from client: 55/5 address - 52241
+Mon Apr 03 01:14:38 MSK 2023 Computing for52241 result: 11.0
